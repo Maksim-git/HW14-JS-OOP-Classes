@@ -1,0 +1,43 @@
+body{
+  background-color: aquamarine;
+}
+.add-task{
+  display: flex;
+  justify-content: center;
+  &__input{
+    margin-right: 10px;
+    padding: 5px;
+  }
+  &__button{
+    margin-right: 10px;
+    &:hover{
+      cursor: pointer;
+    }
+  }
+}
+// ---
+.search-task{
+  margin-left: 10px;
+  display: flex;
+  &__input{
+    margin-right: 10px;
+    padding: 5px;
+  }
+}
+
+.list-li{
+  background-color: yellow;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.hide{
+  display: none;
+}
+.done{
+  color: red;
+}

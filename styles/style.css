@@ -1,0 +1,49 @@
+body {
+  background-color: aquamarine;
+}
+
+.add-task {
+  display: flex;
+  justify-content: center;
+}
+
+.add-task__input {
+  margin-right: 10px;
+  padding: 5px;
+}
+
+.add-task__button {
+  margin-right: 10px;
+}
+
+.add-task__button:hover {
+  cursor: pointer;
+}
+
+.search-task {
+  margin-left: 10px;
+  display: flex;
+}
+
+.search-task__input {
+  margin-right: 10px;
+  padding: 5px;
+}
+
+.list-li {
+  background-color: yellow;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.hide {
+  display: none;
+}
+
+.done {
+  color: red;
+}
