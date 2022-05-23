@@ -43,10 +43,12 @@ class TodoList {
         return;
       }
       lis += `
-        <li data-id="${el.id}" class ="underline">
+        <li data-id="${el.id}" class ="${
+        el.status ? "done" : "in-progress"
+      } list__li">
           ${el.value}
-          <button class="set-status">Change status</button>
-          <button class="delete-task">Delete</button>
+         <button class="set-status">Change status</button>
+         <button class="delete-task">Delete</button>
         </li>
       `;
     }
@@ -55,32 +57,38 @@ class TodoList {
 }
 
 class Task {
-  constructor(value, status) {
+  constructor(value) {
     this.value = value;
-    this.status = status;
+    this.status = false;
     this.id = Math.random().toString(36).substr(2, 9);
   }
 }
 
 let list = document.getElementById("list");
-let todo1 = new TodoList(list);
+let todo = new TodoList(list);
 
-todo1.addTodo(new Task("fieldValue", false));
-todo1.render();
+todo.addTodo(new Task("Implement the site header"));
+todo.addTodo(new Task("Implement of the left menu"));
+todo.addTodo(new Task("Implement the site footer"));
+todo.addTodo(new Task("Iafasdfasdf"));
 
+todo.render();
+console.log(todo);
 mainWrap.addEventListener("click", (e) => {
   let fieldValue = formInput.value;
   const eventTarget = e.target;
-  if (eventTarget.id === "test") {
+  if (eventTarget.id === "buttonCreate") {
     if (fieldValue === "") return;
-    todo1.addTodo(new Task(fieldValue, false));
-    todo1.render();
+    todo.addTodo(new Task(fieldValue));
+    todo.render();
     formInput.value = "";
   } else if (eventTarget.className === "delete-task") {
-    todo1.removeTodo(eventTarget.parentElement.dataset.id);
-    todo1.render();
-  } else if (eventTarget.className === "add-task__button_search") {
-    todo1.findTask(fieldValue);
+    todo.removeTodo(eventTarget.parentElement.dataset.id);
+    eventTarget.closest("li").remove();
+  } else if (eventTarget.id === "add-task__button_search") {
+    todo.findTask(fieldValue);
   } else if (eventTarget.className === "set-status") {
+    todo.changeStatus(eventTarget.parentElement.dataset.id);
+    todo.render();
   }
 });

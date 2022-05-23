@@ -1,21 +1,39 @@
+@import "./colors";
+
 body{
-  background-color: aquamarine;
+  height: 100vh;
+  background: #020024;
+  background: linear-gradient(352deg, #020024 0%, #090979 6%, #00d4ff 100%);
 }
+
+// Buttons and fields for searching and adding tasks
 .add-task{
   display: flex;
   justify-content: center;
   &__input{
     margin-right: 10px;
     padding: 5px;
+    height: 20px;
+    width: 230px;
+    border: none;
+    border-radius: 3px;
   }
   &__button{
     margin-right: 10px;
-    &:hover{
-      cursor: pointer;
+    color: $black;
+    background-color: $greenyellow;
+    &_search{
+      margin-right: 10px;
     }
   }
 }
-// ---
+.button{
+  padding: 5px 10px;
+  border-radius: 5px;
+&:hover{
+  cursor: pointer;
+}
+}
 .search-task{
   margin-left: 10px;
   display: flex;
@@ -24,20 +42,45 @@ body{
     padding: 5px;
   }
 }
-
-.list-li{
-  background-color: yellow;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 10px;
-    border-radius: 5px;
-    padding: 5px;
+.header{
+  text-align: center;
 }
 
+// Task List Styles
+.list__li{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+  border-radius: 5px;
+  padding: 5px;
+}
+.list-wrapper{
+  min-width: 300px
+}
+.tasks-wrap{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+// Deleting tasks, changing the status color.
+.delete-task{
+  margin-left: 10px;
+  color: $white;
+  background-color: $red-orange;
+}
+.set-status{
+  margin-left: 10px;
+}
+
+.in-progress{
+  background-color: $yellow;
+}
+
+.done{
+  background-color: $green;
+}
+// Adding a search property
 .hide{
   display: none;
-}
-.done{
-  color: red;
 }
