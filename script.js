@@ -1,10 +1,29 @@
 const formInput = document.querySelector(".add-task__input");
-const mainWrap = document.querySelector(".main-wrap");
+const mainWrap = document.querySelector(".пше");
+const list = document.querySelector("#list");
 
 class TodoList {
   constructor(el) {
     this.todos = [];
     this.el = el;
+    mainWrap.addEventListener("click", (e) => {
+      let fieldValue = formInput.value;
+      const eventTarget = e.target;
+      if (eventTarget.classList.contains("add-task__button")) {
+        if (fieldValue === "") return;
+        todo.addTodo(new Task(fieldValue));
+        todo.render(this.todos);
+        formInput.value = "";
+      } else if (eventTarget.classList.contains("delete-task")) {
+        todo.removeTodo(eventTarget.parentElement.dataset.id);
+        eventTarget.closest("li").remove();
+      } else if (eventTarget.id === "add-task__button_search") {
+        todo.findTask(fieldValue);
+      } else if (eventTarget.classList.contains("set-status")) {
+        todo.changeStatus(eventTarget.parentElement.dataset.id);
+        todo.render(this.todos);
+      }
+    });
   }
   addTodo(todo) {
     this.todos.push(todo);
@@ -23,22 +42,17 @@ class TodoList {
     this.todos[index].status = !this.todos[index].status;
   }
 
-  findTask(value) {
-    let allLI = document.querySelectorAll("ul > li");
-    if (value != "") {
-      allLI.forEach(function (elem) {
-        if (elem.innerText.search(value) == -1) {
-          elem.classList.add("hide");
-        } else {
-          elem.classList.remove("hide");
-        }
-      });
-    }
+  findTask(params) {
+    this.render(
+      this.todos.filter((item) => {
+        return item.value.includes(params);
+      })
+    );
   }
 
-  render() {
+  render(render = []) {
     let lis = "";
-    for (let el of this.todos) {
+    for (let el of render) {
       if (!el) {
         return;
       }
@@ -64,7 +78,6 @@ class Task {
   }
 }
 
-let list = document.getElementById("list");
 let todo = new TodoList(list);
 
 todo.addTodo(new Task("Implement the site header"));
@@ -72,23 +85,4 @@ todo.addTodo(new Task("Implement of the left menu"));
 todo.addTodo(new Task("Implement the site footer"));
 todo.addTodo(new Task("Iafasdfasdf"));
 
-todo.render();
-console.log(todo);
-mainWrap.addEventListener("click", (e) => {
-  let fieldValue = formInput.value;
-  const eventTarget = e.target;
-  if (eventTarget.id === "buttonCreate") {
-    if (fieldValue === "") return;
-    todo.addTodo(new Task(fieldValue));
-    todo.render();
-    formInput.value = "";
-  } else if (eventTarget.className === "delete-task") {
-    todo.removeTodo(eventTarget.parentElement.dataset.id);
-    eventTarget.closest("li").remove();
-  } else if (eventTarget.id === "add-task__button_search") {
-    todo.findTask(fieldValue);
-  } else if (eventTarget.className === "set-status") {
-    todo.changeStatus(eventTarget.parentElement.dataset.id);
-    todo.render();
-  }
-});
+todo.render(todo.getTodos());
